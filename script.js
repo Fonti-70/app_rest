@@ -128,43 +128,51 @@ function mostrarSeccion(nombreSeccion) {
 
   // Sección "Te Sugerimos"
   if (nombreSeccion === "sugerencias") {
-    const formDiv = document.createElement("div");
-    formDiv.classList.add("seccion");
+  const formDiv = document.createElement("div");
+  formDiv.classList.add("seccion", "asistente-seccion");
 
-    formDiv.innerHTML = `
-      <h2>Ayudante de elección</h2>
-      <p>Responde estas preguntas para sugerirte platos:</p>
+  formDiv.innerHTML = `
+    <h2>🎯 Asistente de Elección de Platos</h2>
+    <p>Responde estas preguntas y te sugeriremos los platos más adecuados para ti.</p>
 
-      <label>Dieta:</label>
+    <div class="pregunta">
+      <label for="dieta"><strong>Dieta:</strong></label>
       <select id="dieta">
         <option value="omnivoro">Omnívoro</option>
         <option value="vegetariano">Vegetariano</option>
         <option value="vegano">Vegano</option>
       </select>
+    </div>
 
-      <label>Alergias (puedes seleccionar varias):</label>
-      <div>
+    <div class="pregunta">
+      <label><strong>Alergias (puedes seleccionar varias):</strong></label>
+      <div class="checkbox-group">
         <label><input type="checkbox" value="gluten"> Gluten</label>
         <label><input type="checkbox" value="frutosSecos"> Frutos secos</label>
         <label><input type="checkbox" value="mariscos"> Mariscos</label>
       </div>
+    </div>
 
-      <label>Preferencia:</label>
+    <div class="pregunta">
+      <label for="preferencia"><strong>Preferencia:</strong></label>
       <select id="preferencia">
         <option value="carne">Carne</option>
         <option value="pescado">Pescado</option>
         <option value="ambos">Ambos</option>
         <option value="ninguno">Ninguno</option>
       </select>
+    </div>
 
-      <button id="btnSugerir">Sugerir platos</button>
-      <div id="sugerencias"></div>
-    `;
-    contenidoDiv.appendChild(formDiv);
+    <button id="btnSugerir" class="boton-sugerir">🍽️ Sugerir Platos</button>
 
-    document.getElementById("btnSugerir").onclick = generarSugerencias;
-    return;
-  }
+    <div id="sugerencias" class="sugerencias"></div>
+  `;
+
+  contenidoDiv.appendChild(formDiv);
+  document.getElementById("btnSugerir").onclick = generarSugerencias;
+  return;
+}
+
 
   // Menú normal (carta)
   carta.forEach(seccion => {
