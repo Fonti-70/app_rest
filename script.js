@@ -165,36 +165,43 @@ function actualizarPedido() {
 
   pedido.forEach((item, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `
-      ${item.nombre} (x${item.cantidad}) - €${(item.precio * item.cantidad).toFixed(2)}
-    `;
+    li.textContent = `${item.nombre} (x${item.cantidad}) - €${(item.precio * item.cantidad).toFixed(2)}`;
 
-    const btnMenos = document.createElement("button");
-    btnMenos.textContent = "-";
-    btnMenos.onclick = () => {
-      if (item.cantidad > 1) {
-        item.cantidad--;
-      } else {
-        pedido.splice(index, 1);
-      }
+    const btnEliminar = document.createElement("button");
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.onclick = () => {
+      pedido.splice(index, 1);
       actualizarPedido();
     };
 
-    const btnMas = document.createElement("button");
-    btnMas.textContent = "+";
-    btnMas.onclick = () => {
-      item.cantidad++;
-      actualizarPedido();
-    };
-
-    li.appendChild(btnMenos);
-    li.appendChild(btnMas);
+    li.appendChild(btnEliminar);
     pedidoUl.appendChild(li);
-
     total += item.precio * item.cantidad;
   });
 
   document.getElementById("total").textContent = total.toFixed(2);
+
+  // Guardar en localStorage
+  localStorage.setItem("pedido", JSON.stringify(pedido));
+}
+
+// Recuperar al cargar
+window.onload = () => {
+  const pedidoGuardado = localStorage.getItem("pedido");
+  if (pedidoGuardado) {
+    pedido = JSON.parse(pedidoGuardado);
+    actualizarPedido();
+  }
+};
+
+function buscarPlato() {
+  const texto = document.getElementById("buscador").value.toLowerCase();
+  const items = document.querySelectorAll(".item");
+
+  items.forEach(item => {
+    const nombre = item.textContent.toLowerCase();
+    item.style.display = nombre.includes(texto) ? "flex" : "none";
+  });
 }
 
 function pagar() {
