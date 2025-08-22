@@ -282,3 +282,34 @@ main {
   background-color: #a8795c;
   transform: translateY(-2px);
 }
+
+
+/* Botón de volver en pago, igual que botón atrás */
+.atras-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background-color: #8b5e3c;
+  color: #fffaf5;
+  transition: all 0.3s ease;
+}
+
+.atras-btn:hover {
+  background-color: #a8795c;
+  transform: translateY(-2px);
+}
+
+/* Inputs en sección de pago */
+#datosPago input, #metodoPago {
+  font-size: 1em;
+  border: 1px solid #e0d7ca;
+  outline: none;
+}
+
+#datosPago input:focus, #metodoPago:focus {
+  border-color: #8b5e3c;
+}
+
