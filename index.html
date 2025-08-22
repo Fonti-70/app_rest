@@ -35,28 +35,32 @@
   </div>
 
   <!-- Sección de pago -->
+<!-- Sección de pago -->
 <div id="pago" class="contenido" style="display:none;">
-  <h2>Realizar Pago</h2>
-  <p>Total a pagar: €<span id="totalPago"></span></p>
-  
-  <label>Elegir método de pago:</label>
-  <select id="metodoPago">
-    <option value="">--Selecciona--</option>
-    <option value="tarjeta">Tarjeta</option>
-    <option value="bizum">Bizum</option>
-  </select>
+  <div class="seccion">
+    <h2>Realizar Pago</h2>
+    <p>Total a pagar: €<span id="totalPago"></span></p>
+    
+    <label>Elegir método de pago:</label>
+    <select id="metodoPago" style="padding:8px; border-radius:8px; margin-top:5px;">
+      <option value="">--Selecciona--</option>
+      <option value="tarjeta">Tarjeta</option>
+      <option value="bizum">Bizum</option>
+    </select>
 
-  <div id="datosPago" style="margin-top:15px;">
-    <input type="text" id="numeroTarjeta" placeholder="Número de tarjeta" style="display:none; padding:5px; width:250px;">
-    <input type="text" id="numeroBizum" placeholder="Número Bizum" style="display:none; padding:5px; width:250px;">
+    <div id="datosPago" style="margin-top:15px;">
+      <input type="text" id="numeroTarjeta" placeholder="Número de tarjeta" style="display:none; padding:8px; border-radius:8px; width:250px;">
+      <input type="text" id="numeroBizum" placeholder="Número Bizum" style="display:none; padding:8px; border-radius:8px; width:250px;">
+    </div>
+
+    <button class="pagar-btn" onclick="procesarPago()" style="margin-top:15px;">Pagar</button>
+
+    <p id="mensajePago" style="margin-top:15px; font-weight:bold;"></p>
+    
+    <button class="atras-btn" onclick="volverAlPedido()">← Volver</button>
   </div>
-
-  <button onclick="procesarPago()" style="margin-top:15px; padding:8px 20px; cursor:pointer;">Pagar</button>
-  
-  <p id="mensajePago" style="margin-top:15px; font-weight:bold;"></p>
-  
-  <button onclick="volverAlPedido()" style="margin-top:10px; padding:5px 15px; cursor:pointer;">← Volver</button>
 </div>
+
 
 
   <script src="script.js"></script> 
