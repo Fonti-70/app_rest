@@ -340,7 +340,49 @@ function buscarPlato() {
 }
 
 function pagar() {
-  alert(`Total a pagar: €${document.getElementById("total").textContent}`);
-  pedido = [];
-  actualizarPedido();
+  // Ocultamos todo menos la sección de pago
+  document.getElementById("inicio").style.display = "none";
+  document.getElementById("contenido").style.display = "none";
+  document.querySelector(".pedido-panel").style.display = "none";
+
+  const pagoDiv = document.getElementById("pago");
+  pagoDiv.style.display = "block";
+
+  document.getElementById("totalPago").textContent = document.getElementById("total").textContent;
+}
+
+// Cambiar campos según método
+document.getElementById("metodoPago").addEventListener("change", function() {
+  const metodo = this.value;
+  document.getElementById("numeroTarjeta").style.display = metodo === "tarjeta" ? "block" : "none";
+  document.getElementById("numeroBizum").style.display = metodo === "bizum" ? "block" : "none";
+});
+
+function procesarPago() {
+  const metodo = document.getElementById("metodoPago").value;
+  const tarjeta = document.getElementById("numeroTarjeta").value;
+  const bizum = document.getElementById("numeroBizum").value;
+  const mensaje = document.getElementById("mensajePago");
+
+  if (metodo === "tarjeta" && tarjeta.length === 16) {
+    mensaje.textContent = "¡Operación exitosa!";
+    mensaje.style.color = "green";
+    pedido = [];
+    actualizarPedido();
+  } else if (metodo === "bizum" && bizum.length >= 9) {
+    mensaje.textContent = "¡Operación exitosa!";
+    mensaje.style.color = "green";
+    pedido = [];
+    actualizarPedido();
+  } else {
+    mensaje.textContent = "Pago no realizado. Revisa tus datos.";
+    mensaje.style.color = "red";
+  }
+}
+
+function volverAlPedido() {
+  document.getElementById("pago").style.display = "none";
+  document.getElementById("inicio").style.display = "flex";
+  document.getElementById("contenido").style.display = "flex";
+  document.querySelector(".pedido-panel").style.display = "block";
 }
