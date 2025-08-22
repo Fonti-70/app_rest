@@ -116,15 +116,13 @@ function mostrarSeccion(nombreSeccion) {
   contenidoDiv.innerHTML = "";
   if (buscador) buscador.style.display = nombreSeccion === "carta" ? "block" : "none";
 
-  // Botón de atrás
-  const btnAtras = document.createElement("button");
-  btnAtras.textContent = "← Atrás";
-  btnAtras.style.marginBottom = "10px";
-  btnAtras.style.padding = "5px 10px";
-  btnAtras.style.fontSize = "0.9em";
-  btnAtras.style.cursor = "pointer";
-  btnAtras.onclick = () => mostrarSeccion("inicio");
-  contenidoDiv.appendChild(btnAtras);
+ // Botón de atrás
+const btnAtras = document.createElement("button");
+btnAtras.textContent = "← Atrás";
+btnAtras.classList.add("btn-atras"); // añadimos clase para CSS
+btnAtras.onclick = () => mostrarSeccion("inicio");
+contenidoDiv.appendChild(btnAtras);
+
 
   // Sección "Te Sugerimos"
   if (nombreSeccion === "sugerencias") {
