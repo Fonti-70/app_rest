@@ -261,26 +261,23 @@ function generarSugerencias() {
     seccion.items.forEach(item => {
       let incluir = true;
 
-      // Ejemplo simple de filtrado por preferencia
+      // Filtrado por dieta
       if (dieta === "vegano") {
-        if (item.nombre.toLowerCase().includes("atún") || item.nombre.toLowerCase().includes("carne") || item.nombre.toLowerCase().includes("huevo") || item.nombre.toLowerCase().includes("queso") ) {
-          incluir = false;
-        }
+        if (/atún|carne|huevo|queso/i.test(item.nombre)) incluir = false;
       } else if (dieta === "vegetariano") {
-        if (item.nombre.toLowerCase().includes("atún") || item.nombre.toLowerCase().includes("carne") || item.nombre.toLowerCase().includes("bogavante") ) {
-          incluir = false;
-        }
+        if (/atún|carne|bogavante/i.test(item.nombre)) incluir = false;
       }
 
-      if (preferencias === "carne" && !item.nombre.toLowerCase().includes("carne") && !item.nombre.toLowerCase().includes("ibérica") && !item.nombre.toLowerCase().includes("solomillo") ) incluir = false;
-      if (preferencias === "pescado" && !item.nombre.toLowerCase().includes("atún") && !item.nombre.toLowerCase().includes("pulpo") && !item.nombre.toLowerCase().includes("calamar") && !item.nombre.toLowerCase().includes("lubina") ) incluir = false;
-      if (preferencias === "ninguno" && (item.nombre.toLowerCase().includes("carne") || item.nombre.toLowerCase().includes("atún") || item.nombre.toLowerCase().includes("pescado") || item.nombre.toLowerCase().includes("bogavante") ) ) incluir = false;
+      // Filtrado por preferencia
+      if (preferencias === "carne" && !/carne|ibérica|solomillo/i.test(item.nombre)) incluir = false;
+      if (preferencias === "pescado" && !/atún|pulpo|calamar|lubina/i.test(item.nombre)) incluir = false;
+      if (preferencias === "ninguno" && /carne|atún|pescado|bogavante/i.test(item.nombre)) incluir = false;
 
       // Filtrado por alergias
       alergias.forEach(a => {
-        if (a === "gluten" && item.nombre.toLowerCase().includes("pan")) incluir = false;
-        if (a === "frutosSecos" && item.nombre.toLowerCase().includes("piñones")) incluir = false;
-        if (a === "mariscos" && (item.nombre.toLowerCase().includes("gambas") || item.nombre.toLowerCase().includes("bogavante") || item.nombre.toLowerCase().includes("almejas") )) incluir = false;
+        if (a === "gluten" && /pan/i.test(item.nombre)) incluir = false;
+        if (a === "frutosSecos" && /piñones/i.test(item.nombre)) incluir = false;
+        if (a === "mariscos" && /gambas|bogavante|almejas/i.test(item.nombre)) incluir = false;
       });
 
       if (incluir) platosFiltrados.push(item);
@@ -299,22 +296,37 @@ function generarSugerencias() {
   const bebidas = ["Agua", "Cerveza", "Vino blanco", "Vino tinto", "Refresco"];
   const bebida = bebidas[Math.floor(Math.random() * bebidas.length)];
 
+  // Mostrar sugerencias
   const sugerenciasDiv = document.getElementById("sugerencias");
-  sugerenciasDiv.innerHTML = "<h3>Te sugerimos:</h3>";
+  sugerenciasDiv.innerHTML = `<h3>🍽️ Te sugerimos:</h3>`;
+
   sugeridos.forEach(item => {
     const div = document.createElement("div");
     div.classList.add("item");
+    div.style.backgroundColor = "#fffaf5";
+    div.style.padding = "12px 16px";
+    div.style.marginBottom = "12px";
+    div.style.borderRadius = "10px";
+    div.style.boxShadow = "0 4px 8px rgba(0,0,0,0.08)";
+    div.style.display = "flex";
+    div.style.justifyContent = "space-between";
+    div.style.alignItems = "center";
+
     div.innerHTML = `
       <span>${item.nombre} - €${item.precio.toFixed(2)}</span>
-      <button onclick="agregarPedido('${item.nombre}', ${item.precio})">Añadir</button>
+      <button onclick="agregarPedido('${item.nombre}', ${item.precio})" style="margin-left:10px; padding:6px 12px; border-radius:8px; background-color:#8b5e3c; color:#fffaf5; border:none; cursor:pointer;">Añadir</button>
     `;
     sugerenciasDiv.appendChild(div);
   });
 
-  const bebidaDiv = document.createElement("p");
-  bebidaDiv.innerHTML = `<strong>Bebida sugerida:</strong> ${bebida}`;
+  const bebidaDiv = document.createElement("div");
+  bebidaDiv.style.marginTop = "15px";
+  bebidaDiv.style.fontWeight = "bold";
+  bebidaDiv.style.color = "#5a3e2b";
+  bebidaDiv.innerHTML = `🍹 Bebida sugerida: ${bebida}`;
   sugerenciasDiv.appendChild(bebidaDiv);
 }
+
 
 
 
