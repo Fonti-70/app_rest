@@ -1,0 +1,170 @@
+/* Header con logo */
+header {
+  background-color: #fffaf5;
+  color: #3e2f23;
+  text-align: center;
+  padding: 30px 20px 20px 20px;
+  border-bottom: 1px solid #e0d7ca;
+  position: relative;
+}
+
+/* Logo en header */
+header img {
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+/* Nombre del restaurante */
+header h1 {
+  margin: 0;
+  font-size: 2.8em;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Subtítulo */
+header p {
+  margin: 5px 0 0 0;
+  font-style: italic;
+  font-size: 1.2em;
+  color: #7a5e45;
+}
+
+/* Main layout */
+main {
+  display: flex;
+  padding: 30px;
+  gap: 30px;
+}
+
+/* Botones de inicio */
+.inicio {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.inicio button {
+  padding: 22px 45px;
+  font-size: 1.2em;
+  border-radius: 15px;
+  border: none;
+  background-color: #8b5e3c;
+  color: #fffaf5;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+.inicio button:hover {
+  background-color: #a8795c;
+  transform: translateY(-2px);
+}
+
+/* Contenido de secciones */
+.contenido {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.seccion {
+  background-color: #fffaf5;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.seccion:hover {
+  transform: translateY(-3px);
+}
+
+.seccion h2 {
+  color: #8b5e3c;
+  border-bottom: 1px solid #e0d7ca;
+  padding-bottom: 5px;
+  font-size: 1.6em;
+  margin-bottom: 15px;
+}
+
+/* Items */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 1.05em;
+}
+
+.item button {
+  background-color: #8b5e3c;
+  border: none;
+  padding: 6px 12px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.item button:hover {
+  background-color: #a8795c;
+}
+
+/* Panel de pedido */
+.pedido-panel {
+  flex: 1;
+  background-color: #fffaf5;
+  padding: 25px;
+  border-radius: 15px;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.pedido-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.pedido-panel li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+/* Botón de eliminar dentro del pedido */
+.pedido-panel li button {
+  background-color: #c4895c;
+  padding: 4px 8px;
+  font-size: 0.8em;
+  border-radius: 6px;
+}
+
+.pedido-panel li button:hover {
+  background-color: #a16a44;
+}
+
+.pedido-panel button.pagar-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #8b5e3c;
+  color: #fffaf5;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pedido-panel button.pagar-btn:hover {
+  background-color: #a8795c;
+  transform: translateY(-2px);
+}
