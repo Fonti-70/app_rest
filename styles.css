@@ -8,6 +8,98 @@ header {
   position: relative;
 }
 
+/* Sección asistente */
+.asistente-seccion {
+  background-color: #fff8f0;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Preguntas */
+.asistente-seccion .pregunta {
+  margin-bottom: 20px;
+}
+
+.asistente-seccion label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #5a3e2b;
+}
+
+.asistente-seccion select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #d8c4b6;
+  font-size: 1em;
+}
+
+.checkbox-group label {
+  margin-right: 15px;
+  font-weight: normal;
+}
+
+/* Botón sugerir */
+.boton-sugerir {
+  background-color: #8b5e3c;
+  color: #fffaf5;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 1.1em;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.boton-sugerir:hover {
+  background-color: #a8795c;
+  transform: translateY(-2px);
+}
+
+/* Platos sugeridos */
+.sugerencias {
+  margin-top: 25px;
+}
+
+.sugerencias .item {
+  background-color: #fffaf5;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sugerencias .item button {
+  background-color: #8b5e3c;
+  color: #fffaf5;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sugerencias .item button:hover {
+  background-color: #a8795c;
+}
+
+/* Bebida sugerida */
+.sugerencias div:last-child {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #5a3e2b;
+}
+
+
+
+
+
+
 /* Logo en header */
 header img {
   height: 80px;
