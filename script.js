@@ -148,7 +148,13 @@ function mostrarSeccion(nombreSeccion) {
 }
 
 function agregarPedido(nombre, precio) {
-  pedido.push({ nombre, precio });
+  const itemExistente = pedido.find(item => item.nombre === nombre);
+  
+  if (itemExistente) {
+    itemExistente.cantidad++;
+  } else {
+    pedido.push({ nombre, precio, cantidad: 1 });
+  }
   actualizarPedido();
 }
 
@@ -159,23 +165,33 @@ function actualizarPedido() {
 
   pedido.forEach((item, index) => {
     const li = document.createElement("li");
-    li.textContent = `${item.nombre} - €${item.precio.toFixed(2)}`;
+    li.innerHTML = `
+      ${item.nombre} (x${item.cantidad}) - €${(item.precio * item.cantidad).toFixed(2)}
+    `;
 
-    const btnEliminar = document.createElement("button");
-    btnEliminar.textContent = "Eliminar";
-    btnEliminar.style.marginLeft = "10px";
-    btnEliminar.style.padding = "2px 6px";
-    btnEliminar.style.fontSize = "0.8em";
-    btnEliminar.style.cursor = "pointer";
-    btnEliminar.onclick = () => {
-      pedido.splice(index, 1);
+    const btnMenos = document.createElement("button");
+    btnMenos.textContent = "-";
+    btnMenos.onclick = () => {
+      if (item.cantidad > 1) {
+        item.cantidad--;
+      } else {
+        pedido.splice(index, 1);
+      }
       actualizarPedido();
     };
 
-    li.appendChild(btnEliminar);
+    const btnMas = document.createElement("button");
+    btnMas.textContent = "+";
+    btnMas.onclick = () => {
+      item.cantidad++;
+      actualizarPedido();
+    };
+
+    li.appendChild(btnMenos);
+    li.appendChild(btnMas);
     pedidoUl.appendChild(li);
 
-    total += item.precio;
+    total += item.precio * item.cantidad;
   });
 
   document.getElementById("total").textContent = total.toFixed(2);
