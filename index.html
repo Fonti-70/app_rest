@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casa Juan</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container"> 
+    <header>
+      <h1>Casa Juan</h1>
+      <p>Pequeños placeres de nuestra cocina</p>
+    </header>
+
+    <main>
+      <div id="inicio" class="inicio">
+        <button onclick="mostrarSeccion('carta')">Ver Carta</button>
+        <button onclick="mostrarSeccion('sugerencias')">Te Sugerimos</button>
+      </div>
+
+      <div id="contenido" class="contenido"></div>
+
+      <div class="pedido-panel">
+        <h2>Tu Pedido</h2>
+        <ul id="pedidoItems"></ul>
+        <p>Total: €<span id="total">0</span></p>
+        <button class="pagar-btn" onclick="pagar()">Pagar</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script> 
+</body>
+</html>
