@@ -101,16 +101,22 @@ let pedido = [];
 function mostrarSeccion(nombreSeccion) {
   const inicioDiv = document.getElementById("inicio");
   const contenidoDiv = document.getElementById("contenido");
-  
+  const buscador = document.getElementById("buscador");
+
+  // Volver al inicio
   if (nombreSeccion === "inicio") {
     inicioDiv.style.display = "flex";
     contenidoDiv.innerHTML = "";
+    if (buscador) buscador.style.display = "none";
     return;
   }
 
+  // Ocultar inicio y buscador
   inicioDiv.style.display = "none";
   contenidoDiv.innerHTML = "";
+  if (buscador) buscador.style.display = nombreSeccion === "carta" ? "block" : "none";
 
+  // Botón de atrás
   const btnAtras = document.createElement("button");
   btnAtras.textContent = "← Atrás";
   btnAtras.style.marginBottom = "10px";
@@ -118,9 +124,49 @@ function mostrarSeccion(nombreSeccion) {
   btnAtras.style.fontSize = "0.9em";
   btnAtras.style.cursor = "pointer";
   btnAtras.onclick = () => mostrarSeccion("inicio");
-
   contenidoDiv.appendChild(btnAtras);
 
+  // Sección "Te Sugerimos"
+  if (nombreSeccion === "sugerencias") {
+    const formDiv = document.createElement("div");
+    formDiv.classList.add("seccion");
+
+    formDiv.innerHTML = `
+      <h2>Ayudante de elección</h2>
+      <p>Responde estas preguntas para sugerirte platos:</p>
+
+      <label>Dieta:</label>
+      <select id="dieta">
+        <option value="omnivoro">Omnívoro</option>
+        <option value="vegetariano">Vegetariano</option>
+        <option value="vegano">Vegano</option>
+      </select>
+
+      <label>Alergias (puedes seleccionar varias):</label>
+      <div>
+        <label><input type="checkbox" value="gluten"> Gluten</label>
+        <label><input type="checkbox" value="frutosSecos"> Frutos secos</label>
+        <label><input type="checkbox" value="mariscos"> Mariscos</label>
+      </div>
+
+      <label>Preferencia:</label>
+      <select id="preferencia">
+        <option value="carne">Carne</option>
+        <option value="pescado">Pescado</option>
+        <option value="ambos">Ambos</option>
+        <option value="ninguno">Ninguno</option>
+      </select>
+
+      <button id="btnSugerir">Sugerir platos</button>
+      <div id="sugerencias"></div>
+    `;
+    contenidoDiv.appendChild(formDiv);
+
+    document.getElementById("btnSugerir").onclick = generarSugerencias;
+    return;
+  }
+
+  // Menú normal (carta)
   carta.forEach(seccion => {
     if (seccion.seccion === nombreSeccion || nombreSeccion === "carta") {
       const seccionDiv = document.createElement("div");
@@ -146,6 +192,7 @@ function mostrarSeccion(nombreSeccion) {
     }
   });
 }
+
 
 function agregarPedido(nombre, precio) {
   const itemExistente = pedido.find(item => item.nombre === nombre);
@@ -193,6 +240,76 @@ window.onload = () => {
     actualizarPedido();
   }
 };
+
+function generarSugerencias() {
+  const dieta = document.getElementById("dieta").value;
+  const preferencias = document.getElementById("preferencia").value;
+  const alergias = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+
+  // Filtrar platos según dieta, preferencia y alergias
+  let platosFiltrados = [];
+
+  carta.forEach(seccion => {
+    seccion.items.forEach(item => {
+      let incluir = true;
+
+      // Ejemplo simple de filtrado por preferencia
+      if (dieta === "vegano") {
+        if (item.nombre.toLowerCase().includes("atún") || item.nombre.toLowerCase().includes("carne") || item.nombre.toLowerCase().includes("huevo") || item.nombre.toLowerCase().includes("queso") ) {
+          incluir = false;
+        }
+      } else if (dieta === "vegetariano") {
+        if (item.nombre.toLowerCase().includes("atún") || item.nombre.toLowerCase().includes("carne") || item.nombre.toLowerCase().includes("bogavante") ) {
+          incluir = false;
+        }
+      }
+
+      if (preferencias === "carne" && !item.nombre.toLowerCase().includes("carne") && !item.nombre.toLowerCase().includes("ibérica") && !item.nombre.toLowerCase().includes("solomillo") ) incluir = false;
+      if (preferencias === "pescado" && !item.nombre.toLowerCase().includes("atún") && !item.nombre.toLowerCase().includes("pulpo") && !item.nombre.toLowerCase().includes("calamar") && !item.nombre.toLowerCase().includes("lubina") ) incluir = false;
+      if (preferencias === "ninguno" && (item.nombre.toLowerCase().includes("carne") || item.nombre.toLowerCase().includes("atún") || item.nombre.toLowerCase().includes("pescado") || item.nombre.toLowerCase().includes("bogavante") ) ) incluir = false;
+
+      // Filtrado por alergias
+      alergias.forEach(a => {
+        if (a === "gluten" && item.nombre.toLowerCase().includes("pan")) incluir = false;
+        if (a === "frutosSecos" && item.nombre.toLowerCase().includes("piñones")) incluir = false;
+        if (a === "mariscos" && (item.nombre.toLowerCase().includes("gambas") || item.nombre.toLowerCase().includes("bogavante") || item.nombre.toLowerCase().includes("almejas") )) incluir = false;
+      });
+
+      if (incluir) platosFiltrados.push(item);
+    });
+  });
+
+  // Elegir 3 platos aleatorios
+  let sugeridos = [];
+  for (let i = 0; i < 3 && platosFiltrados.length > 0; i++) {
+    const index = Math.floor(Math.random() * platosFiltrados.length);
+    sugeridos.push(platosFiltrados[index]);
+    platosFiltrados.splice(index, 1);
+  }
+
+  // Sugerir también una bebida
+  const bebidas = ["Agua", "Cerveza", "Vino blanco", "Vino tinto", "Refresco"];
+  const bebida = bebidas[Math.floor(Math.random() * bebidas.length)];
+
+  const sugerenciasDiv = document.getElementById("sugerencias");
+  sugerenciasDiv.innerHTML = "<h3>Te sugerimos:</h3>";
+  sugeridos.forEach(item => {
+    const div = document.createElement("div");
+    div.classList.add("item");
+    div.innerHTML = `
+      <span>${item.nombre} - €${item.precio.toFixed(2)}</span>
+      <button onclick="agregarPedido('${item.nombre}', ${item.precio})">Añadir</button>
+    `;
+    sugerenciasDiv.appendChild(div);
+  });
+
+  const bebidaDiv = document.createElement("p");
+  bebidaDiv.innerHTML = `<strong>Bebida sugerida:</strong> ${bebida}`;
+  sugerenciasDiv.appendChild(bebidaDiv);
+}
+
+
+
 
 function buscarPlato() {
   const texto = document.getElementById("buscador").value.toLowerCase();
