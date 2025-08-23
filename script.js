@@ -392,5 +392,5 @@ function volverAlPedido() {
   document.getElementById("contenido").style.display = "none";
   document.querySelector(".pedido-panel").style.display = "block";
 
-  document.getElementById("contenido").innerHTML = "";
+  //document.getElementById("contenido").innerHTML = "";
 }
