@@ -342,10 +342,7 @@ function buscarPlato() {
 function pagar() {
   // Ocultamos todo menos la sección de pago
 
-  if (total === 0) {
-    alert("Tu pedido está vacío. Añade algún plato antes de pagar.");
-    return;
-  }
+  
   
   document.getElementById("inicio").style.display = "none";
   document.getElementById("contenido").style.display = "none";
@@ -389,7 +386,7 @@ function procesarPago() {
 function volverAlPedido() {
   document.getElementById("pago").style.display = "none";
   document.getElementById("inicio").style.display = "flex";
-  document.getElementById("contenido").style.display = "none";
+  document.getElementById("contenido").style.display = "flex";
   document.querySelector(".pedido-panel").style.display = "block";
 
   //document.getElementById("contenido").innerHTML = "";
